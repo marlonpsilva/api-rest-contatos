@@ -7,8 +7,9 @@ import javax.transaction.Transactional;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.data.web.PageableDefault;
@@ -37,6 +38,7 @@ public class ContatoController {
 	private ContatoRepository contatoRepository;
 
 	@GetMapping
+	@Cacheable(value = "listaDeContatos")
 	public Page<ContatoDto> lista(@RequestParam(required = false) String nome,
 			@PageableDefault(sort = "id", direction = Direction.ASC, page = 0, size = 10)Pageable paginacao) {
 				
@@ -51,6 +53,7 @@ public class ContatoController {
 
 	@PostMapping
 	@Transactional
+	@CacheEvict(value = "listaDeContatos", allEntries = true)
 	public ResponseEntity<ContatoDto> cadastrar(@RequestBody @Valid ContatoForm form, UriComponentsBuilder uriBuilder) {
 		Contato contato = form.converter();
 		contatoRepository.save(contato);
@@ -69,6 +72,7 @@ public class ContatoController {
 
 	@PutMapping("/{id}")
 	@Transactional
+	@CacheEvict(value = "listaDeContatos", allEntries = true)
 	public ResponseEntity<ContatoDto> atualizar(@PathVariable Long id, @RequestBody @Valid ContatoForm form) {
 		Optional<Contato> optional = contatoRepository.findById(id);
 		if (optional.isPresent()) {
@@ -79,7 +83,8 @@ public class ContatoController {
 	}
 
 	@DeleteMapping("/{id}")
-	public ResponseEntity<?> delete(@PathVariable Long id) {
+	@CacheEvict(value = "listaDeContatos", allEntries = true)
+	public ResponseEntity<Contato> delete(@PathVariable Long id) {
 		Optional<Contato> optional = contatoRepository.findById(id);
 		if (optional.isPresent()) {
 			contatoRepository.deleteById(id);
