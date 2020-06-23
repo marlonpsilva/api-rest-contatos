@@ -4,9 +4,6 @@ public class ErroFormularioDto {
 	private String campo;
 	private String erro;
 
-	
-	
-	
 	public String getCampo() {
 		return campo;
 	}

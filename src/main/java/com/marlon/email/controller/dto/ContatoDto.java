@@ -1,7 +1,6 @@
 package com.marlon.email.controller.dto;
 
-import java.util.List;
-import java.util.stream.Collectors;
+import org.springframework.data.domain.Page;
 
 import com.marlon.email.model.Contato;
 
@@ -33,7 +32,7 @@ public class ContatoDto {
 		this.campanha = campanha;
 	}
 
-	public static List<ContatoDto> converter(List<Contato> contatos) {
-		return contatos.stream().map(ContatoDto::new).collect(Collectors.toList());
+	public static Page<ContatoDto> converter(Page<Contato> contatos) {
+		return contatos.map(ContatoDto::new);
 	}
 }
