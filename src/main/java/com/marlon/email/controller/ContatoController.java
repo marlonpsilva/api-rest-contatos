@@ -40,8 +40,8 @@ public class ContatoController {
 	@GetMapping
 	@Cacheable(value = "listaDeContatos")
 	public Page<ContatoDto> lista(@RequestParam(required = false) String nome,
-			@PageableDefault(sort = "id", direction = Direction.ASC, page = 0, size = 10)Pageable paginacao) {
-				
+			@PageableDefault(sort = "id", direction = Direction.ASC, page = 0, size = 10) Pageable paginacao) {
+
 		if (nome == null) {
 			Page<Contato> contatos = contatoRepository.findAll(paginacao);
 			return ContatoDto.converter(contatos);

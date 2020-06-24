@@ -1,3 +1,4 @@
+INSERT INTO USUARIO(nome, email, senha) VALUES('Aluno', 'aluno@email.com', '$2a$10$Yl8j451ln.priK3aNkeeYuPs/FEYYqK9aLAYp60zf7947rGF5qKJy');
 INSERT INTO CONTATO(nome, email, campanha) VALUES('Marlon Pestana', 'marlon.pestana@email.com.br','PPL - Review Code');
 INSERT INTO CONTATO(nome, email, campanha) VALUES('Carlina ferreira', 'kakazinha@email.com.br','PPL - Review Code');
 INSERT INTO CONTATO(nome, email, campanha) VALUES('Joao Silva', 'joaosilva@email.com.br','PPL - Review Code');
